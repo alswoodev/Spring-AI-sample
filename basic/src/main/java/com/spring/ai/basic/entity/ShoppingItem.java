@@ -3,6 +3,7 @@ package com.spring.ai.basic.entity;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.*;
+import com.spring.ai.basic.entity.enums.ShoppingItem.ShoppingItemStatus;
 
 @Entity
 @Table(name = "shopping_items", indexes = {
@@ -34,8 +35,9 @@ public class ShoppingItem extends BaseEntity{
     //private String category; // 식품, 생필품, 전자제품, etc.
     
     @Column(length = 20, nullable = false)
+    @Enumerated(EnumType.STRING)
     @Builder.Default
-    private String status = "pending"; // pending, purchased, cancelled
+    private ShoppingItemStatus status = ShoppingItemStatus.PENDING; // pending, purchased, cancelled
     
     @Column(columnDefinition = "TEXT")
     private String notes;

@@ -2,6 +2,7 @@ package com.spring.ai.basic.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import com.spring.ai.basic.entity.enums.task.*;
 
 import java.time.LocalDateTime;
 
@@ -38,16 +39,19 @@ public class Task extends BaseEntity{
     private LocalDateTime endDate;
     
     @Column(length = 20, nullable = false)
+    @Enumerated(EnumType.STRING)
     @Builder.Default
-    private String type = "event"; // meeting, task, reminder, event
+    private TaskType type = TaskType.EVENT; // meeting, task, reminder, event
     
     @Column(length = 20)
+    @Enumerated(EnumType.STRING)
     @Builder.Default
-    private String priority = "medium"; // high, medium, low
+    private TaskPriority priority = TaskPriority.MEDIUM; // high, medium, low
     
     @Column(length = 20, nullable = false)
+    @Enumerated(EnumType.STRING)
     @Builder.Default
-    private String status = "scheduled"; // scheduled, completed, cancelled
+    private TaskStatus status = TaskStatus.SCHEDULED; // scheduled, completed, cancelled
     
     @Column
     private LocalDateTime completedAt;
