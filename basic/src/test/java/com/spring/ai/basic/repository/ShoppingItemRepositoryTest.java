@@ -46,13 +46,13 @@ class ShoppingItemRepositoryTest {
     void testFindByUserId() {
         // given
         ShoppingItem item1 = ShoppingItem.builder()
-                .user(testUser)
+                .userId(testUser.getUserId())
                 .itemName("Milk")
                 .quantity(2)
                 .build();
 
         ShoppingItem item2 = ShoppingItem.builder()
-                .user(testUser)
+                .userId(testUser.getUserId())
                 .itemName("Bread")
                 .quantity(1)
                 .status(ShoppingItemStatus.PURCHASED)
@@ -75,13 +75,13 @@ class ShoppingItemRepositoryTest {
     void testFindByUserIdAndStatus() {
         // given
         ShoppingItem pendingItem = ShoppingItem.builder()
-                .user(testUser)
+                .userId(testUser.getUserId())
                 .itemName("Eggs")
                 .quantity(1)
                 .build();
 
         ShoppingItem purchasedItem = ShoppingItem.builder()
-                .user(testUser)
+                .userId(testUser.getUserId())
                 .itemName("Cheese")
                 .quantity(2)
                 .status(ShoppingItemStatus.PURCHASED)
@@ -105,7 +105,7 @@ class ShoppingItemRepositoryTest {
     void testSaveShoppingItem() {
         // given
         ShoppingItem item = ShoppingItem.builder()
-                .user(testUser)
+                .userId(testUser.getUserId())
                 .itemName("Apple")
                 .quantity(5)
                 .notes("Fresh apples")
@@ -127,7 +127,7 @@ class ShoppingItemRepositoryTest {
         // given
         for (int i = 0; i < 3; i++) {
             ShoppingItem item = ShoppingItem.builder()
-                    .user(testUser)
+                    .userId(testUser.getUserId())
                     .itemName("Item " + i)
                     .quantity(1)
                     .build();

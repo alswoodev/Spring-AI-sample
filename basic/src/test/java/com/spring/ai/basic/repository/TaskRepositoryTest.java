@@ -48,7 +48,7 @@ class TaskRepositoryTest {
     void testFindByUserUserId() {
         // given
         Task task1 = Task.builder()
-                .user(testUser)
+                .userId(testUser.getUserId())
                 .title("Task 1")
                 .description("Description 1")
                 .startDate(LocalDateTime.now())
@@ -57,7 +57,7 @@ class TaskRepositoryTest {
                 .build();
 
         Task task2 = Task.builder()
-                .user(testUser)
+                .userId(testUser.getUserId())
                 .title("Task 2")
                 .description("Description 2")
                 .startDate(LocalDateTime.now().plusDays(1))
@@ -81,7 +81,7 @@ class TaskRepositoryTest {
     void testFindHighPriorityTask() {
         // given
         Task highPriorityTask = Task.builder()
-                .user(testUser)
+                .userId(testUser.getUserId())
                 .title("High Priority Task")
                 .priority(TaskPriority.HIGH)
                 .startDate(LocalDateTime.now())
@@ -90,7 +90,7 @@ class TaskRepositoryTest {
                 .build();
 
         Task lowPriorityTask = Task.builder()
-                .user(testUser)
+                .userId(testUser.getUserId())
                 .title("Low Priority Task")
                 .priority(TaskPriority.LOW)
                 .startDate(LocalDateTime.now())
@@ -116,7 +116,7 @@ class TaskRepositoryTest {
         LocalDateTime today = LocalDateTime.now();
         
         Task todayTask = Task.builder()
-                .user(testUser)
+                .userId(testUser.getUserId())
                 .title("Today Task")
                 .startDate(today)
                 .endDate(today.plusDays(1))
@@ -124,7 +124,7 @@ class TaskRepositoryTest {
                 .build();
 
         Task todayTask2 = Task.builder()
-                .user(testUser)
+                .userId(testUser.getUserId())
                 .title("Today Task 2")
                 .startDate(today)
                 .endDate(today)
@@ -132,7 +132,7 @@ class TaskRepositoryTest {
                 .build();
 
         Task futureTask = Task.builder()
-                .user(testUser)
+                .userId(testUser.getUserId())
                 .title("Future Task")
                 .startDate(today.plusDays(5))
                 .endDate(today.plusDays(6))
