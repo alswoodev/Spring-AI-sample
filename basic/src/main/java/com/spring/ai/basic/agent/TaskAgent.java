@@ -6,6 +6,8 @@ import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import com.spring.ai.basic.tool.TaskTool;
+import com.spring.ai.basic.service.TaskService;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,11 +21,14 @@ public class TaskAgent {
     private final ChatClient chatClient;
     private final ChatMemory chatMemory;
     private final String systemPrompt;
+    private final TaskService taskService;
 
     public TaskAgent(ChatClient.Builder builder,
                     @Qualifier("workerPrompts") Map<String,String> prompts,
-                     ChatMemory chatMemory) {
+                     ChatMemory chatMemory,
+                     TaskService taskService) {
         this.chatClient = builder.build();
+        this.taskService = taskService;
         this.systemPrompt = prompts.get("task");
         this.chatMemory = chatMemory;
     }
@@ -42,6 +47,7 @@ public class TaskAgent {
             String response = chatClient.prompt()
                 .system(finalPrompt)
                 .user(userMessage)
+                .tools(new TaskTool(taskService))
                 .advisors(MessageChatMemoryAdvisor.builder(chatMemory).build())
                 .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, conversationId))
                 .call()
