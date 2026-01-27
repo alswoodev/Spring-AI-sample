@@ -60,20 +60,20 @@ class TaskServiceTest {
     @Test
     void testGetTaskByUserId() {
         //given
-        SecretaryDTOs.UserId userIdDTO = new SecretaryDTOs.UserId(userId);
+        //userId
 
         //when
-        List<SecretaryDTOs.TaskResponse> tasks = taskService.getTaskByUserId(userIdDTO);
+        List<Task> tasks = taskService.getTaskByUserId(userId);
 
         //then
         assertEquals(1, tasks.size());
-        assertEquals("Test Task", tasks.get(0).title());
+        assertEquals("Test Task", tasks.get(0).getTitle());
     }
 
     @Test
     void testGetFutureTaskByUserId() {
         //given
-        SecretaryDTOs.UserId userIdDTO = new SecretaryDTOs.UserId(userId);
+        //userId
         Task task2 = Task.builder()
                         .userId(userId)
                         .title("Test Task2")
@@ -84,22 +84,21 @@ class TaskServiceTest {
         taskRepository.save(task2);
 
         //when
-        List<SecretaryDTOs.TaskResponse> tasks = taskService.getFutureTaskByUserId(userIdDTO);
+        List<Task> tasks = taskService.getFutureTaskByUserId(userId);
 
         //then
         assertEquals(2, tasks.size());
-        assertEquals("Test Task", tasks.get(0).title());
+        assertEquals("Test Task", tasks.get(0).getTitle());
+        assertEquals("Test Task2", tasks.get(1).getTitle());
     }
 
     @Test
     void testGetTaskByDateRange() {
         //given
-        LocalDate today = LocalDate.now();
-        SecretaryDTOs.TaskFindByDateRequest request = new SecretaryDTOs.TaskFindByDateRequest(
-                userId,
-                today.toString(),
-                today.plusDays(1).toString()
-        );
+        //userId
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = startDate.plusDays(1);
+
         Task task2 = Task.builder()
                         .userId(userId)
                         .title("Test Task2")
@@ -110,33 +109,31 @@ class TaskServiceTest {
         taskRepository.save(task2);
 
         //when
-        List<SecretaryDTOs.TaskResponse> tasks = taskService.getTask(request);
+        List<Task> tasks = taskService.getTask(userId, startDate, endDate);
 
         //then
         assertEquals(2, tasks.size());
-        assertEquals("Test Task", tasks.get(0).title());
+        assertEquals("Test Task", tasks.get(0).getTitle());
+        assertEquals("Test Task2", tasks.get(1).getTitle());
     }
 
     @Test
     void testAddTask() {
         //given
-        SecretaryDTOs.TaskAddRequest request = new SecretaryDTOs.TaskAddRequest(
-                userId,
-                "New Task",
-                "New Description",
-                LocalDate.now().toString(),
-                LocalDate.now().plusDays(2).toString(),
-                "MEETING",
-                "HIGH"
-        );
+        //userId
+        String title = "New Task";
+        String description = "New description";
+        LocalDate startDate =LocalDate.now();
+        LocalDate endDate = startDate.plusDays(2);
+        String type = "MEETING";
+        String priority = "HIGH";
 
         //when
-        List<SecretaryDTOs.TaskResponse> tasks = taskService.addTask(request); //Vertify Return Value
+        Task task = taskService.addTask(userId, title, description, startDate, endDate, type, priority); //Vertify Return Value
         List<Task> savedTasks = taskRepository.findByUserUserId(userId); //Vertify Task is really in DB
 
         //then
-        assertEquals(1, tasks.size());
-        assertEquals("New Task", tasks.get(0).title());
+        assertEquals("New Task", task.getTitle());
         
         assertEquals(2, savedTasks.size()); 
     }
@@ -144,18 +141,15 @@ class TaskServiceTest {
     @Test
     void testCancelTask() {
         //given
-        SecretaryDTOs.TaskCancleRequest request = new SecretaryDTOs.TaskCancleRequest(
-                userId,
-                task.getTaskId()
-        );
+        //userId
+        Long taskId = task.getTaskId();
 
         //when
-        List<SecretaryDTOs.TaskResponse> tasks = taskService.cancelTask(request); //Vertify Return Value
+        Task task = taskService.cancelTask(userId, taskId); //Vertify Return Value
         Task cancelledTask = taskRepository.findById(task.getTaskId()).orElseThrow(); //Vertify Task is really in DB
 
         //then
-        assertEquals(1, tasks.size());
-        assertEquals(TaskStatus.CANCELLED, tasks.get(0).status());
+        assertEquals(TaskStatus.CANCELLED, task.getStatus());
 
         assertEquals(TaskStatus.CANCELLED, cancelledTask.getStatus());
     }
@@ -163,10 +157,9 @@ class TaskServiceTest {
     @Test
     void testGetTaskWithPriority() {
         //given
-        SecretaryDTOs.TaskFindByPriorityRequest request = new SecretaryDTOs.TaskFindByPriorityRequest(
-                userId,
-                "HIGH"
-        );
+        //userId
+        String priority = "HIGH";
+
         Task task2 = Task.builder()
                         .userId(userId)
                         .title("Test Task2")
@@ -178,10 +171,10 @@ class TaskServiceTest {
         taskRepository.save(task2);
 
         //when
-        List<SecretaryDTOs.TaskResponse> tasks = taskService.getTaskWithPriority(request);
+        List<Task> tasks = taskService.getTaskWithPriority(userId, priority);
 
         //then
         assertEquals(1, tasks.size());
-        assertEquals("Test Task2", tasks.get(0).title());
+        assertEquals("Test Task2", tasks.get(0).getTitle());
     }
 }
