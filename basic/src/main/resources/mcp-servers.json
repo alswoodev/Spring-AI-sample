@@ -1,17 +1,23 @@
 {
-    "mcpServers" : {
-        "slack" : {
-            "command" : "npx",
-            "args" : [
-                "-y",
-                "@modelcontextprotocol/server-slack"
-            ],
-            "env":{
-                "SLACK_BOT_TOKEN" : "${SLACK_BOT_TOKEN}",
-                "SLACK_TEAM_ID": "${SLACK_TEAM_ID}",
-                "SLACK_CHANNEL_IDS": "${SLACK_CHANNEL_IDS}"
-            }
-
-        }
+  "mcpServers" : {
+    "slack" : {
+          "command" : "npx",
+          "args" : [
+            "-y",
+            "@modelcontextprotocol/server-slack"
+          ],
+          "env":{
+            "SLACK_BOT_TOKEN" : "${SLACK_BOT_TOKEN}",
+            "SLACK_TEAM_ID": "${SLACK_TEAM_ID}",
+            "SLACK_CHANNEL_IDS": "${SLACK_CHANNEL_IDS}"
+          }
+        },
+    "gmail": {
+      "command": "npx",
+      "args": ["@infograb/gmail-mcp-server"],
+      "env": {
+        "GMAIL_ACCESS_TOKEN": "YOUR_ACCESS_TOKEN_HERE"
+      }
     }
+  }
 }

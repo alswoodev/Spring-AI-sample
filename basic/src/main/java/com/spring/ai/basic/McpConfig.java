@@ -1,4 +1,4 @@
-/*package com.spring.ai.basic;
+package com.spring.ai.basic;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -60,7 +60,7 @@ public class McpConfig {
         mcpClient.initialize();
         
         //If mcpClient is connected successfully, you can uncomment the following line to see the available tools.
-        //System.out.println(mcpClient.listTools());
+        System.out.println(mcpClient.listTools());
 
         return mcpClient;
     }
@@ -68,4 +68,4 @@ public class McpConfig {
     private static boolean isWindows() {
         return System.getProperty("os.name").toLowerCase().contains("win");
     }
-}*/
+}

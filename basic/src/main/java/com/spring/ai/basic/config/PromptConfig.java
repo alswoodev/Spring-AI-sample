@@ -15,6 +15,8 @@ public class PromptConfig {
 
     @Value("classpath:prompts/worker-task.st")
     private Resource taskResource;
+    @Value("classpath:prompts/worker-mail.st")
+    private Resource mailResource;
 
     private String loadPrompt(Resource resource) {
         try {
@@ -27,7 +29,8 @@ public class PromptConfig {
     @Bean(name="workerPrompts")
     public Map<String, String> workerPrompts(){
          return Map.of(
-                 "task", loadPrompt(taskResource)
+                 "task", loadPrompt(taskResource),
+                 "mail", loadPrompt(mailResource)
          );
     }
 }
