@@ -1,6 +1,6 @@
 package com.spring.ai.basic.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import jakarta.persistence.*;
 import lombok.*;
 import com.spring.ai.basic.entity.enums.ShoppingItem.ShoppingItemStatus;
@@ -47,7 +47,7 @@ public class ShoppingItem extends BaseEntity{
     private String notes = "";
     
     @Column
-    private LocalDateTime purchasedAt;
+    private LocalDate purchasedAt;
 
 /**
      * Static factory method to create a ShoppingItem instance.
