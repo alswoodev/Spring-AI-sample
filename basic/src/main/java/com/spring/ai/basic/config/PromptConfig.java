@@ -19,8 +19,8 @@ public class PromptConfig {
     private Resource mailResource;
     @Value("classpath:prompts/worker-shopping.st")
     private Resource shoppingResource;
-    @Value("classpath:prompts/worker-personal.st")
-    private Resource personalResource;
+    @Value("classpath:prompts/worker-knowledge.st")
+    private Resource knowledgeResource;
 
     private String loadPrompt(Resource resource) {
         try {
@@ -36,7 +36,7 @@ public class PromptConfig {
                  "task", loadPrompt(taskResource),
                  "mail", loadPrompt(mailResource),
                  "shopping", loadPrompt(shoppingResource),
-                 "personal", loadPrompt(personalResource)
+                 "knowledge", loadPrompt(knowledgeResource)
          );
     }
 }

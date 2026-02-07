@@ -6,7 +6,7 @@ import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.spring.ai.basic.agent.PersonalInformationAgent;
+import com.spring.ai.basic.agent.KnowledgeManagerAgent;
 import com.spring.ai.basic.entity.User;
 import com.spring.ai.basic.repository.UserRepository;
 
@@ -25,9 +25,9 @@ import org.junit.jupiter.api.Test;
  * Do NOT use it for real API calls to avoid consuming your API key or incurring charges.
  */
 /*@SpringBootTest
-public class PersonalInformationAgentTest {
+public class KnowledgeManagerAgentTest {
     @Autowired
-    private PersonalInformationAgent personalInformationAgent;
+    private KnowledgeManagerAgent knowledgeManagerAgent;
 
     @Autowired
     private UserRepository userRepository;
@@ -51,7 +51,7 @@ public class PersonalInformationAgentTest {
         String userMessage = "나는 매일 김밥을 먹는다";
         String userId = testUser.getUserId().toString();
 
-        String response = personalInformationAgent.process(userMessage, userId);
+        String response = knowledgeManagerAgent.process(userMessage, userId);
         System.out.println("Agent Response: " + response);
 
         List<Document> results = vectorStore.similaritySearch(

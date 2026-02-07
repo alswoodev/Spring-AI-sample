@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import com.spring.ai.basic.tool.KnowledgeManageTool;
 
 @Component
-public class PersonalInformationAgent {
+public class KnowledgeManagerAgent {
     
     private final ChatClient chatClient;
 
@@ -25,14 +25,14 @@ public class PersonalInformationAgent {
 
     private final String systemPrompt;
 
-    public PersonalInformationAgent(ChatClient.Builder chatClient, 
+    public KnowledgeManagerAgent(ChatClient.Builder chatClient, 
                                     ChatMemory chatMemory, 
                                     KnowledgeManageTool knowledgeManageTool,
                                     Map<String,String> prompts){
         this.chatClient = chatClient.build();
         this.chatMemory = chatMemory;
         this.knowledgeManageTool = knowledgeManageTool;
-        this.systemPrompt = prompts.get("personal");
+        this.systemPrompt = prompts.get("knowledge");
     }
 
     public String process(String userMessage, String userId){
