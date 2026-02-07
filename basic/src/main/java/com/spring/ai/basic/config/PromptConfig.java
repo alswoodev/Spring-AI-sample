@@ -23,6 +23,8 @@ public class PromptConfig {
     private Resource knowledgeResource;
     @Value("classpath:prompts/worker-rag.st")
     private Resource ragResource;
+    @Value("classpath:prompts/router.st")
+    private Resource routerResource;
 
     private String loadPrompt(Resource resource) {
         try {
@@ -39,7 +41,8 @@ public class PromptConfig {
                  "mail", loadPrompt(mailResource),
                  "shopping", loadPrompt(shoppingResource),
                  "knowledge", loadPrompt(knowledgeResource),
-                 "rag", loadPrompt(ragResource)
+                 "rag", loadPrompt(ragResource),
+                 "router", loadPrompt(routerResource)
          );
     }
 }

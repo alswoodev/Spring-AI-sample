@@ -1,0 +1,42 @@
+package com.spring.ai.basic.Agent;
+
+import java.util.UUID;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.spring.ai.basic.agent.AgentRouter;
+import com.spring.ai.basic.entity.User;
+import com.spring.ai.basic.repository.UserRepository;
+
+/&@SpringBootTest
+public class AgentRouterTest {
+    @Autowired
+    private AgentRouter agentRouter;
+
+    @Autowired 
+    private UserRepository userRepository;
+
+    private User testUser;
+
+    @BeforeEach
+    void setUp(){
+        testUser = User.builder()
+                .email("asdf@gmail.com")
+                .name("Test User")
+                .build();
+        userRepository.save(testUser);
+    }
+
+    @Test
+    public void chatTest(){
+        String userMessage = "한국의 물가와 소비자지수(CPI) 변화에 대해서 설명해줘";
+        String userId = testUser.getUserId().toString();
+        String conversationId = UUID.randomUUID().toString();
+
+        String response = agentRouter.route(userMessage, userId, conversationId);
+        System.out.println("Response: " + response);
+    }
+}
