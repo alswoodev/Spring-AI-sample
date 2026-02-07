@@ -7,6 +7,7 @@ import com.spring.ai.basic.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.spring.ai.basic.agent.RagAgent;
+import java.util.UUID;
 
 /*
  * WARNING:
@@ -36,6 +37,7 @@ public class RagAgentTest {
     public void processTest() {
         String userMessage = "한국의 물가와 소비자물가지수(CPI) 변화에 대해서 설명해줘";
         String userId = testUser.getUserId().toString();
+        String conversationId = UUID.randomUUID().toString();
 
         String response = ragAgent.process(userMessage, userId);
         System.out.println("Agent Response: " + response);

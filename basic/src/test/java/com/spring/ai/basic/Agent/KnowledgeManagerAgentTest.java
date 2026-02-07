@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,8 +51,9 @@ public class KnowledgeManagerAgentTest {
     public void processTest() {
         String userMessage = "나는 매일 김밥을 먹는다";
         String userId = testUser.getUserId().toString();
+        String conversationId = UUID.randomUUID().toString();
 
-        String response = knowledgeManagerAgent.process(userMessage, userId);
+        String response = knowledgeManagerAgent.process(userMessage, userId, conversationId);
         System.out.println("Agent Response: " + response);
 
         List<Document> results = vectorStore.similaritySearch(

@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.spring.ai.basic.entity.ShoppingItem;
 import java.util.List;
+import java.util.UUID;
 
 /*
  * WARNING:
@@ -44,15 +45,17 @@ public class ShoppingAgentTest {
         String userMessage = "장보기 물품에 우유, 소고기 추가해줘";
         String userMessage2 = "장보러 갈려고 하는데 장보기 리스트 알려줘";
         String userId = testUser.getUserId().toString();
+        String conversationId1 = UUID.randomUUID().toString();
+        String conversationId2 = UUID.randomUUID().toString();
 
 
-        String response = shoppingAgent.process(userMessage, userId);
+        String response = shoppingAgent.process(userMessage, userId, conversationId1);
         System.out.println("Agent Response: " + response);
 
         List<ShoppingItem> items = shoppingItemRepository.findByUserUserIdAndStatus(testUser.getUserId(), ShoppingItemStatus.PENDING);
         items.forEach(task -> System.out.println("Item in DB: " + task.getItemName() + ", " + task.getQuantity() ));
         
-        String response2 = shoppingAgent.process(userMessage2, userId);
+        String response2 = shoppingAgent.process(userMessage2, userId, conversationId2);
         System.out.println("Agent Response: " + response2);
     }
 }*/

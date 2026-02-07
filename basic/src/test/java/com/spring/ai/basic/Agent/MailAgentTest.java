@@ -7,6 +7,7 @@ import com.spring.ai.basic.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.spring.ai.basic.agent.MailAgent;
+import java.util.UUID;
 
 /*
  * WARNING:
@@ -37,11 +38,13 @@ public class MailAgentTest {
         //String userMessage = "{your_mail}으로 '안녕하세요'라는 제목과 함께 새해 안부를 묻는 내용의 메일 보내줘";
         String userMessage2 = "최근 메일을 모두 검색한 다음에 요약해줘";
         String userId = testUser.getUserId().toString();
+        String conversationId1 = UUID.randomUUID().toString();
+        String conversationId2 = UUID.randomUUID().toString();
 
-        //String response = mailAgent.process(userMessage, userId);
+        //String response = mailAgent.process(userMessage, userId, conversationId1);
         //System.out.println("Agent Response: " + response);
 
-        String response2 = mailAgent.process(userMessage2, userId);
+        String response2 = mailAgent.process(userMessage2, userId, conversationId2);
         System.out.println("Agent Response: " + response2);
     }
 }*/

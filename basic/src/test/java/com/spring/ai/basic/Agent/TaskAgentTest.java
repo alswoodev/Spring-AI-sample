@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.spring.ai.basic.entity.Task;
 import java.util.List;
+import java.util.UUID;
 
 /*
  * WARNING:
@@ -43,15 +44,16 @@ public class TaskAgentTest {
         String userMessage = "내일 김철수님이랑 종로 스타벅스에서 미팅 일정이 생겼어";
         String userMessage2 = "내일 일정을 알려줘";
         String userId = testUser.getUserId().toString();
+        String conversationId1 = UUID.randomUUID().toString();
+        String conversationId2 = UUID.randomUUID().toString();
 
-
-        String response = taskAgent.process(userMessage, userId);
+        String response = taskAgent.process(userMessage, userId, conversationId1);
         System.out.println("Agent Response: " + response);
 
         List<Task> tasks = taskRepository.findByUserUserId(testUser.getUserId());
         tasks.forEach(task -> System.out.println("Task in DB: " + task.getTitle() + ", " + task.getStartDate() + " to " + task.getEndDate()));
 
-        String response2 = taskAgent.process(userMessage2, userId);
+        String response2 = taskAgent.process(userMessage2, userId, conversationId2);
         System.out.println("Agent Response: " + response2);
     }
 }*/
