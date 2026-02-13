@@ -10,7 +10,7 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: user1234
     ports:
-      - "5432:5432"
+      - "5431:5432"
     restart: unless-stopped
 
   pgdb:
@@ -30,9 +30,9 @@ services:
     ports:
       - "8081:8081"
     depends_on:
-      - mariadb
+      - pgdb
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/springai
+      SPRING_DATASOURCE_URL: jdbc:postgresql://pgdb:5432/springai
       SPRING_DATASOURCE_USERNAME: user
       SPRING_DATASOURCE_PASSWORD: user1234
 
